@@ -23,7 +23,7 @@ import requests
 Window.size = {320,600}
 
 firebaseConfig = {
-    'apiKey': "AIzaSyCn08y_A9zVGHXmZ5BjYCH6Yzxtaln_w0w",
+    'apiKey': "enter your key",
     'authDomain': "auth-b1cff.firebaseapp.com",
     'databaseURL': "https://auth-b1cff-default-rtdb.asia-southeast1.firebasedatabase.app",
     'projectId': "auth-b1cff",
@@ -183,7 +183,7 @@ class AmbulanceScreen(Screen):
         self.ids.textfield.text = address
 
         '''def availabe_display():
-            api_key = 'AIzaSyAMfpWeT_ak2ffFWqlLbe9eFYRoVzlX2hU'
+            api_key = 'enter your api'
             get_curr_loclick()
             radius_km = 5  # Change this value to your desired radius in kilometers
             radius_meters = radius_km * 1000
