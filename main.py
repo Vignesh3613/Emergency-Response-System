@@ -188,7 +188,7 @@ class AmbulanceScreen(Screen):
             radius_km = 5  # Change this value to your desired radius in kilometers
             radius_meters = radius_km * 1000
             place_type = 'hospital'
-            url = f'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={latitude},{longitude}&radius={radius_meters}&type={place_type}&key={api_key}'
+            url ='enter your url from google map api'
             response = requests.get(url)
             if response.status_code == 200:
                 data = response.json()

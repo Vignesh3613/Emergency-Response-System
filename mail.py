@@ -2,7 +2,7 @@ import smtplib
 import random
 server=smtplib.SMTP('smtp.gmail.com',587)
 server.starttls()
-server.login('emergencyresponse80@gmail.com','uwbssbzandgpyrlv')
+server.login('emergencyresponse80@gmail.com','enter your app password')
 otpnum = str(random.randint(100000,999999))
 def send_mail_otp(email):
     server.sendmail('emergencyresponse80@gmail.com',email,"your veification code for emergency response system app is\n\n"+otpnum)
