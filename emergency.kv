@@ -1,0 +1,458 @@
+ScreenManager:
+    LoginPage:
+    SignUpPage:
+    OTPScreen:
+    MainScreen:
+    PoliceScreen:
+    FirstAidScreen:
+    AmbulanceScreen:
+    ProfileScreen:
+
+<MainScreen>:
+    name: "main"
+    MDScreen:
+        MDNavigationLayout:
+            MDScreenManager:
+                MDScreen:
+                    MDBoxLayout:
+                        orientation: 'vertical'
+                        MDTopAppBar:
+                            title: "Emergency Service"
+                            elevation: 0
+                            pos_hint: {"top": 1}
+                            md_bg_color: app.theme_cls.primary_color
+                            left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+                            right_action_items: [["account-circle",lambda x:app.profile()]]
+                        MDGridLayout:
+                            cols: 2
+                            padding: '5dp'
+                            spacing: '5dp'
+                            MDRectangleFlatButton:
+                                size_hint: None, None
+                                size: "150dp", "100dp"
+                                on_release:
+                                    app.root.current = "ambulance"
+                                    root.manager.transition.direction = 'left'
+                                MDBoxLayout:
+                                    orientation: 'vertical'
+                                    spacing: '5dp'
+                                    MDIcon:
+                                        icon: 'ambulance'
+                                        color: 'red'
+                                        font_size: "50sp"
+                                        pos_hint: {'center_x': .5, 'center_y': .5}
+                                    MDLabel:
+                                        text: 'AMBULANCE'
+                                        halign: 'center'
+                                        font_style: 'Button'
+                            MDRectangleFlatButton:
+                                size_hint: None, None
+                                size: "150dp", "100dp"
+                                md_bg_color: 'red'
+                                on_release: app.emergency()
+                                MDBoxLayout:
+                                    orientation: 'vertical'
+                                    spacing: '5dp'
+                                    MDIcon:
+                                        icon: 'alert'
+                                        color: 'white'
+                                        font_size: "50sp"
+                                        pos_hint: {'center_x': .5, 'center_y': .5}
+                                    MDLabel:
+                                        text: 'EMERGENCY ALERT'
+                                        halign: 'center'
+                                        font_style: 'Button'
+                                        color: 'white'
+                            MDRectangleFlatButton:
+                                size_hint: None, None
+                                size: "150dp", "100dp"
+                                on_release:
+                                    app.root.current = "police"
+                                    root.manager.transition.direction = 'left'
+                                MDBoxLayout:
+                                    orientation: 'vertical'
+                                    spacing: '5dp'
+                                    MDIcon:
+                                        icon: 'police-badge'
+                                        color: 'blue'
+                                        font_size: "50sp"
+                                        pos_hint: {'center_x': .5, 'center_y': .5}
+                                    MDLabel:
+                                        text: 'POLICE'
+                                        halign: 'center'
+                                        font_style: 'Button'
+                            MDRectangleFlatButton:
+                                size_hint: None, None
+                                size: "150dp", "100dp"
+                                on_release:
+                                    app.root.current = "firstaid"
+                                    root.manager.transition.direction = 'left'
+                                MDBoxLayout:
+                                    orientation: 'vertical'
+                                    spacing: '5dp'
+                                    MDIcon:
+                                        icon: 'plus-outline'
+                                        color: 'red'
+                                        font_size: "50sp"
+                                        pos_hint: {'center_x': .5, 'center_y': .5}
+                                    MDLabel:
+                                        text: 'FIRST AID TIPS'
+                                        halign: 'center'
+                                        font_style: 'Button'
+                            MDBoxLayout:
+                                id: box
+            MDNavigationDrawer:
+                id: nav_drawer
+                radius: (0, 16, 16, 0)
+                width: "250dp"
+                MDNavigationDrawerMenu:
+                    MDNavigationDrawerHeader:
+                        title: "Contents"
+                    MDNavigationDrawerItem:
+
+<AmbulanceScreen>:
+    name: "ambulance"
+    MDScreen:
+        MDBoxLayout:
+            orientation: 'vertical'
+        MDTopAppBar:
+            elevation: 0
+            title: "Ambulance service"
+            left_action_items: [['arrow-left',lambda x: app.go_back()]]
+            pos_hint: {'center_y': .97}
+        MDBoxLayout:
+            orientation: 'vertical'
+        MDLabel:
+            text: "Enter your address: "
+            pos_hint: {"center_x": .5, 'center_y': .85}
+        MDTextField:
+            id: textfield
+            size_hint_x: .5
+            max_height: "100dp"
+            mode: "fill"
+            fill_color: 1,1,1,1
+            multiline: True
+            radius: [10,]
+            pos_hint: {"center_x": .7, 'center_y': .85}
+        MDLabel:
+            text: "or"
+            pos_hint: {"center_x": .99, 'center_y': .78}
+        MDRectangleFlatIconButton:
+            icon: 'crosshairs-gps'
+            text: 'Use current location'
+            theme_text_color: "Custom"
+            text_color: "black"
+            pos_hint: {"center_x": .5, 'center_y': .73}
+            on_press: root.open_map()
+        MDLabel:
+            text: 'Condition: '
+            pos_hint: {'center_x': .11, 'center_y': .64}
+            font_size: "15sp"
+            halign: 'center'
+        MDTextButton:
+            id: condition
+            text: "Select"
+            width: 120
+            pos_hint: {'center_x': .38, 'center_y': .64}
+            on_press: root.conditions_select()
+        MDLabel:
+            text: "Hospital: "
+            pos_hint: {'center_x': .1, 'center_y': .56}
+            font_size: "15sp"
+            halign: 'center'
+        MDTextButton:
+            id: hospital
+            text: "Select"
+            width: 120
+            pos_hint: {'center_x': .38, 'center_y': .56}
+            on_press: root.select_hospital()
+        MDRaisedButton:
+            text: 'Book Ambulance'
+            pos_hint: {"center_x": .5, 'center_y': .48}
+            on_press: root.book()
+        MDBoxLayout:
+            orientation: 'vertical'
+
+<PoliceScreen>:
+    name: "police"
+    MDScreen:
+        MDBoxLayout:
+            orientation: 'vertical'
+            MDTopAppBar:
+                elevation: 0
+                left_action_items: [['arrow-left',lambda x: app.go_back()]]
+            MDBoxLayout:
+                orientation: 'vertical'
+
+<FirstAidScreen>:
+    name: "firstaid"
+    MDScreen:
+        MDBoxLayout:
+            orientation: 'vertical'
+            MDTopAppBar:
+                elevation: 0
+                left_action_items: [['arrow-left',lambda x:app.go_back()]]
+            MDBoxLayout:
+                orientation: 'vertical'
+
+<LoginPage>:
+    name: "login"
+    MDScreen:
+        BoxLayout:
+            orientation: 'vertical'
+            padding: [50, 100]
+        MDLabel:
+            text: 'LOGIN'
+            pos_hint: {'center_x': .5, 'center_y': .85}
+            font_size: "30sp"
+            halign: 'center'
+            theme_text_color: 'Secondary'
+        MDTextField:
+            id: username
+            hint_text: 'Username'
+            helper_text_mode: 'on_focus'
+            pos_hint: {'center_x': .5, 'center_y': .7}
+            size_hint: None, None
+            size: 300, self.height
+        MDTextField:
+            id: password
+            hint_text: 'Password'
+            password: True
+            helper_text_mode: 'on_focus'
+            pos_hint: {'center_x': .5, 'center_y': .55}
+            size_hint: None, None
+            size: 300, self.height
+        MDTextButton:
+            text: "Forgot password?"
+            font_size: "14sp"
+            theme_text_color: 'Secondary'
+            pos_hint: {'center_x': .7, 'center_y': .49}
+        MDRaisedButton:
+            text: 'Login'
+            font_size: "16sp"
+            pos_hint: {'center_x': .5, 'center_y': .4}
+            size_hint_x: .9
+            on_release: root.login()
+        MDLabel:
+            text: 'Or'
+            pos_hint: {'center_x': .5, 'center_y': .33}
+            font_size: "15sp"
+            halign: 'center'
+            theme_text_color: 'Secondary'
+        MDIcon:
+            icon: 'google'
+            pos_hint: {'center_x': .4,'center_y': .27}
+        MDIcon:
+            icon: 'facebook'
+            pos_hint: {'center_x': .5,'center_y': .27}
+        MDIcon:
+            icon: 'twitter'
+            pos_hint: {'center_x': .6,'center_y': .27}
+        MDLabel:
+            text: "Don't have an account?"
+            pos_hint: {'center_x': .5, 'center_y': .2}
+            font_size: "15sp"
+            halign: 'center'
+            theme_text_color: 'Secondary'
+        MDRaisedButton:
+            text: 'Sign up'
+            font_size: "16sp"
+            pos_hint: {'center_x': .5, 'center_y': .14}
+            on_release:
+                root.manager.transition.direction = "left"
+                root.manager.current = "signup"
+
+<SignUpPage>:
+    id: signup
+    name: "signup"
+    BoxLayout:
+        orientation: 'vertical'
+        padding: [50, 100]
+    MDLabel:
+        text: 'SIGN UP'
+        pos_hint: {'center_x': .5, 'center_y': .85}
+        font_size: "30sp"
+        halign: 'center'
+        theme_text_color: 'Secondary'
+    MDTextField:
+        id: username
+        hint_text: 'Username'
+        helper_text_mode: 'on_focus'
+        pos_hint: {'center_x': .5, 'center_y': .7}
+        size_hint: None, None
+        size: 300, self.height
+    MDTextField:
+        id: password
+        hint_text: 'Password'
+        password: True
+        helper_text_mode: 'on_focus'
+        pos_hint: {'center_x': .5, 'center_y': .6}
+        size_hint: None, None
+        size: 300, self.height
+    MDTextField:
+        id: confirm_password
+        hint_text: 'Confirm Password'
+        password: True
+        helper_text_mode: 'on_focus'
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        size_hint: None, None
+        size: 300, self.height
+    MDRaisedButton:
+        text: 'SIGN UP'
+        font_size: "16sp"
+        pos_hint: {'center_x': .5, 'center_y': .4}
+        size_hint_x: .9
+        on_release: root.signup()
+    MDLabel:
+        text: 'Or'
+        pos_hint: {'center_x': .5, 'center_y': .33}
+        font_size: "15sp"
+        halign: 'center'
+        theme_text_color: 'Secondary'
+    MDIcon:
+        icon: 'google'
+        pos_hint: {'center_x': .4,'center_y': .27}
+    MDIcon:
+        icon: 'facebook'
+        pos_hint: {'center_x': .5,'center_y': .27}
+    MDIcon:
+        icon: 'twitter'
+        pos_hint: {'center_x': .6,'center_y': .27}
+    MDLabel:
+        text: "Already have an account?"
+        pos_hint: {'center_x': .5, 'center_y': .2}
+        font_size: "15sp"
+        halign: 'center'
+        theme_text_color: 'Secondary'
+    MDRaisedButton:
+        text: 'Login'
+        font_size: "16sp"
+        pos_hint: {'center_x': .5, 'center_y': .14}
+        on_release:
+            root.manager.transition.direction = "right"
+            root.manager.current = "login"
+
+<OTPScreen>:
+    name: 'otpscreen'
+    MDScreen:
+        MDBoxLayout:
+            orientation: 'vertical'
+            MDTopAppBar:
+                elevation: 0
+                left_action_items: [['arrow-left',lambda x: root.goback()]]
+            MDLabel:
+                text: "Enter the otp sent to your email"
+                halign: 'center'
+                pos_hint: {'center_x': .5, 'center_y': .8}
+            MDTextField:
+                id: otp_input
+                hint_text: "Enter OTP"
+                size_hint_x: None
+                width: 200
+                pos_hint: {'center_x': .5, 'center_y': .7}
+                input_filter: 'int'
+                max_text_lenght: 6
+            MDRaisedButton:
+                text: 'Verify OTP'
+                size_hint: None, None
+                width: 200
+                pos_hint: {"center_x": 0.5, 'center_y': .6}
+                on_release: root.verify_otp()
+            MDBoxLayout:
+                orientation: 'vertical'
+
+<ProfileScreen>:
+    name: "profile"
+    MDScreen:
+        BoxLayout:
+            orientation: 'vertical'
+            MDTopAppBar:
+                title: "My Profile"
+                elevation: 0
+                left_action_items: [['arrow-left',lambda x: app.go_back()]]
+            MDBoxLayout:
+                orientation: 'vertical'
+        MDLabel:
+            text: 'Name:'
+            pos_hint: {'center_x': .1, 'center_y': .85}
+            font_size: "15sp"
+            halign: 'center'
+            theme_text_color: 'Secondary'
+        MDTextField:
+            id: name
+            required: True
+            pos_hint: {'center_x': .52, 'center_y': .85}
+            size_hint: None, None
+            size: 250, self.height
+        MDLabel:
+            text: 'Age:'
+            pos_hint: {'center_x': .07, 'center_y': .77}
+            font_size: "15sp"
+            halign: 'center'
+            theme_text_color: 'Secondary'
+        MDTextField:
+            id: age
+            required: True
+            input_filter: "int"
+            pos_hint: {'center_x': .22, 'center_y': .78}
+            size_hint: None, None
+            size: 40, self.height
+        MDLabel:
+            text: 'Gender:'
+            pos_hint: {'center_x': .1, 'center_y': .69}
+            font_size: "15sp"
+            halign: 'center'
+            theme_text_color: 'Secondary'
+        MDTextButton:
+            id: gender
+            text: "Select"
+            width: 80
+            pos_hint: {'center_x': .3, 'center_y': .69}
+            on_press: root.dropdown_gender()
+        MDLabel:
+            text: 'Blood Group:'
+            pos_hint: {'center_x': .15, 'center_y': .61}
+            font_size: "15sp"
+            halign: 'center'
+            theme_text_color: 'Secondary'
+        MDTextButton:
+            id: blood
+            text: "Select"
+            pos_hint: {'center_x': .44, 'center_y': .61}
+            on_press: root.dropdown_blood()
+        MDLabel:
+            text: 'Ph No:'
+            pos_hint: {'center_x': .1, 'center_y': .53}
+            font_size: "15sp"
+            halign: 'center'
+            theme_text_color: 'Secondary'
+        MDTextField:
+            id: phno
+            required: True
+            input_filter: "int"
+            pos_hint: {'center_x': .52, 'center_y': .53}
+            size_hint: None, None
+            size: 250, self.height
+        MDLabel:
+            text: 'Emergency'
+            pos_hint: {'center_x': .13, 'center_y': .45}
+            font_size: "15sp"
+            halign: 'center'
+            theme_text_color: 'Secondary'
+        MDLabel:
+            text: 'Emergency contact No:'
+            pos_hint: {'center_x': .01, 'center_y': .42}
+            font_size: "15sp"
+            halign: 'center'
+            theme_text_color: 'Secondary'
+        MDTextField:
+            id: ephno
+            required: True
+            input_filter: "int"
+            pos_hint: {'center_x': .57, 'center_y': .43}
+            size_hint: None, None
+            size: 250, self.height
+        MDRaisedButton:
+            text: "Save"
+            pos_hint: {'center_x': .5, 'center_y': .3}
+            on_press: root.saveprofile()
